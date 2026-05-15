@@ -173,6 +173,39 @@ app.put("/api/users/:id",async(req:Request,res:Response)=>{
 
 
 
+// delete single data form users 
+app.delete("/api/users/:id", async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const result = await pool.query(
+      `
+      DELETE FROM users WHERE id=$1
+    
+        `,
+      [id],
+    );
+
+    // if data is not found
+    if (result.rowCount==0) {
+      return res.status(404).json({
+        success: false,
+        message: "data not found",
+        data: [],
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: "deleted successfully",
+      data: result.rows[0],
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+      data: [],
+    });
+  }
+});
 
 
 
