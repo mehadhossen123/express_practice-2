@@ -3,43 +3,24 @@ import express, {
   type Request,
   type Response,
 } from "express";
-import config from "../config";
+
 import { pool } from "../database/db";
+import { userRouter } from "../modules/users/users.route";
 
 
 
 const app: Application = express();
 app.use(express.json());
-const port = config.port;
+app.use("/api/users",userRouter)
+
 
 
 
 app.get("/", (req: Request, res: Response) => {
   res.send("this is express server");
 });
-app.post("/api/users", async (req: Request, res: Response) => {
-  try {
-    const { name, email, age, password } = req.body;
-    const result = await pool.query(
-      `
-    INSERT INTO users(name,email,age,password)
-    values($1,$2,$3,$4) RETURNING*
-        `,
-      [name, email, age, password],
-    );
-    res.status(200).json({
-      success: true,
-      message: "created successfully",
-      data: result.rows[0],
-    });
-  } catch (error: any) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-      data: [],
-    });
-  }
-});
+
+
 
 // get all data form users
 app.get("/api/users", async (req: Request, res: Response) => {
