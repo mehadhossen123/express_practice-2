@@ -7,6 +7,11 @@ const router=Router();
 // post users 
 router.post("/",userController.createUser);
 
+// get all data from database
+
+router.get("/", userController.getUser);
+
+
 
 
 

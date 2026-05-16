@@ -23,27 +23,6 @@ app.get("/", (req: Request, res: Response) => {
 
 
 // get all data form users
-app.get("/api/users", async (req: Request, res: Response) => {
-  try {
-    const result = await pool.query(
-      `
-      SELECT *FROM users
-    
-        `,
-    );
-    res.status(200).json({
-      success: true,
-      message: "get successfully",
-      data: result.rows,
-    });
-  } catch (error: any) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-      data: [],
-    });
-  }
-});
 
 // get single data from users
 app.get("/api/users/:id", async (req: Request, res: Response) => {
