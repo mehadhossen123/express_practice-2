@@ -6,10 +6,12 @@ import express, {
 
 
 import { userRouter } from "../modules/users/users.route";
+import { authRouter } from "../modules/auth/auth.router";
 
 const app: Application = express();
 app.use(express.json());
 app.use("/api/users",userRouter)
+app.use("/api/auth",authRouter)
 
 
 
