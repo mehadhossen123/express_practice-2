@@ -15,7 +15,7 @@ const loginUserFromDb = async (email: string, password: string) => {
         `,
     [email],
   );
-  if (usersData.rows[0] == 0) {
+  if (usersData.rows.length == 0) {
     throw new Error("Invalid credentials");
   }
 
